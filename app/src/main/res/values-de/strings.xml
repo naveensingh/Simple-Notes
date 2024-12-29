@@ -6,7 +6,7 @@
     <string name="cannot_share_empty_text">Eine leere Notiz kann nicht geteilt werden</string>
     <string name="new_note">Neue Notiz hinzufügen</string>
     <string name="no_title">Bitte benenne deine Notiz</string>
-    <string name="title_taken">Es existiert bereits eine Notiz mit diesem Namen</string>
+    <string name="title_taken">Eine Notiz mit diesem Namen existiert bereits</string>
     <string name="open_note">Notiz öffnen</string>
     <string name="delete_note">Notiz löschen</string>
     <string name="delete_note_prompt_message">Die Notiz „%s“ wirklich löschen\?</string>
