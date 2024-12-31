@@ -125,19 +125,16 @@ class OpenNoteAdapter(
                 val taskType = object : TypeToken<List<Task>>() {}.type
                 var items = Gson().fromJson<List<Task>>(getNoteStoredValue(context), taskType) ?: listOf()
                 items = items.let {
-                    val sorting = context.config.sorting
+                    val sorting = context.config.getSorting(id)
                     Task.sorting = sorting
+                    var result = it
                     if (Task.sorting and SORT_BY_CUSTOM == 0) {
-                        it.sorted().let {
-                            if (context.config.moveDoneChecklistItems) {
-                                it.sortedBy { it.isDone }
-                            } else {
-                                it
-                            }
-                        }
-                    } else {
-                        it
+                        result = result.sorted()
                     }
+                    if (context.config.getMoveDoneChecklistItems(id)) {
+                        result = result.sortedBy { it.isDone }
+                    }
+                    result
                 }
 
                 val linePrefix = "• "

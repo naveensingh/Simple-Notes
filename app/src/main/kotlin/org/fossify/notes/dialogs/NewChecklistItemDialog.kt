@@ -14,7 +14,11 @@ import org.fossify.notes.databinding.DialogNewChecklistItemBinding
 import org.fossify.notes.databinding.ItemAddChecklistBinding
 import org.fossify.notes.extensions.config
 
-class NewChecklistItemDialog(val activity: Activity, callback: (titles: ArrayList<String>) -> Unit) {
+class NewChecklistItemDialog(
+    val activity: Activity,
+    private val noteId: Long,
+    callback: (titles: ArrayList<String>) -> Unit
+) {
     private val titles = mutableListOf<AppCompatEditText>()
     private val binding = DialogNewChecklistItemBinding.inflate(activity.layoutInflater)
     private val view = binding.root
@@ -32,7 +36,7 @@ class NewChecklistItemDialog(val activity: Activity, callback: (titles: ArrayLis
             addItem.setOnClickListener {
                 addNewEditText()
             }
-            settingsAddChecklistTop.beVisibleIf(activity.config.sorting == SORT_BY_CUSTOM)
+            settingsAddChecklistTop.beVisibleIf(activity.config.getSorting(noteId) == SORT_BY_CUSTOM)
             settingsAddChecklistTop.isChecked = activity.config.addNewChecklistItemsTop
         }
 

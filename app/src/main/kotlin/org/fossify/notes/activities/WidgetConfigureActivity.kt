@@ -171,7 +171,7 @@ class WidgetConfigureActivity : SimpleActivity() {
                 }
             }
 
-            TasksAdapter(this, null, binding.checklistNoteView).apply {
+            TasksAdapter(this, null, binding.checklistNoteView, mCurrentNoteId).apply {
                 updateTextColor(mTextColor)
                 binding.checklistNoteView.adapter = this
                 submitList(items.toList())

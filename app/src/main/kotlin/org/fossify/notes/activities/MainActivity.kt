@@ -91,6 +91,7 @@ class MainActivity : SimpleActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         appLaunched(BuildConfig.APPLICATION_ID)
+        config.migrateMoveDoneChecklistItems()
         setupOptionsMenu()
         refreshMenuItems()
 
@@ -1117,6 +1118,9 @@ class MainActivity : SimpleActivity() {
                 doDeleteNote(mCurrentNote, deleteFile)
             }
         }
+        if (note.type == NoteType.TYPE_CHECKLIST) {
+            config.removeCustomSorting(note.id.toString())
+        }
     }
 
     private fun doDeleteNote(note: Note, deleteFile: Boolean) {
@@ -1306,7 +1310,7 @@ class MainActivity : SimpleActivity() {
     }
 
     private fun displaySortChecklistDialog() {
-        SortChecklistDialog(this) {
+        SortChecklistDialog(this, mCurrentNote.id) {
             getPagerAdapter().refreshChecklist(binding.viewPager.currentItem)
             updateWidgets()
         }

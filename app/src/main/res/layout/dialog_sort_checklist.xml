@@ -93,4 +93,12 @@
             android:text="@string/move_done_checklist_items" />
 
     </RelativeLayout>
+
+    <org.fossify.commons.views.MyAppCompatCheckbox
+        android:id="@+id/sorting_dialog_use_for_this_checklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/min_radio_checkbox_height"
+        android:text="@string/use_for_this_checklist" />
+
 </LinearLayout>

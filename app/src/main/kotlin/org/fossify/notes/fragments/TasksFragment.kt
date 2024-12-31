@@ -139,7 +139,7 @@ class TasksFragment : NoteFragment(), TasksActionListener {
     }
 
     private fun showNewItemDialog() {
-        NewChecklistItemDialog(activity as SimpleActivity) { titles ->
+        NewChecklistItemDialog(activity as SimpleActivity, noteId) { titles ->
             var currentMaxId = tasks.maxByOrNull { item -> item.id }?.id ?: 0
             val newItems = ArrayList<Task>()
 
@@ -162,7 +162,7 @@ class TasksFragment : NoteFragment(), TasksActionListener {
     }
 
     private fun prepareTaskItems(): List<NoteItem> {
-        return if (config?.moveDoneChecklistItems == true) {
+        return if (config?.getMoveDoneChecklistItems(noteId) == true) {
             mutableListOf<NoteItem>().apply {
                 val (checked, unchecked) = tasks.partition { it.isDone }
                 this += unchecked
@@ -191,6 +191,7 @@ class TasksFragment : NoteFragment(), TasksActionListener {
                 activity = activity as SimpleActivity,
                 listener = this,
                 recyclerView = binding.checklistList,
+                noteId = noteId,
                 itemClick = ::itemClicked
             )
             binding.checklistList.adapter = adapter
@@ -201,7 +202,7 @@ class TasksFragment : NoteFragment(), TasksActionListener {
 
     private fun setupAdapter() {
         updateUIVisibility()
-        Task.sorting = requireContext().config.sorting
+        Task.sorting = requireContext().config.getSorting(noteId)
         if (Task.sorting and SORT_BY_CUSTOM == 0) {
             tasks.sort()
         }

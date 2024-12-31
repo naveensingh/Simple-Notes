@@ -39,6 +39,7 @@ const val MOVE_DONE_CHECKLIST_ITEMS = "move_undone_checklist_items"     // it ha
 const val FONT_SIZE_PERCENTAGE = "font_size_percentage"
 const val EXPORT_MIME_TYPE = "text/plain"
 const val ADD_NEW_CHECKLIST_ITEMS_TOP = "add_new_checklist_items_top"
+const val MIGRATED_MOVE_DONE_CHECKLIST_ITEMS = "migrated_move_undone_checklist_items"
 
 // auto backups
 const val AUTOMATIC_BACKUP_REQUEST_CODE = 10001
@@ -80,3 +81,5 @@ const val FONT_SIZE_175_PERCENT = 175
 const val FONT_SIZE_200_PERCENT = 200
 const val FONT_SIZE_250_PERCENT = 250
 const val FONT_SIZE_300_PERCENT = 300
+
+const val SORT_MOVE_DONE_ITEMS = 524288

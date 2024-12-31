@@ -72,6 +72,7 @@
     <string name="checklist_is_empty">The checklist is empty</string>
     <string name="delete_checked_items">Delete checked items</string>
     <string name="add_to_the_top">Add to the top</string>
+    <string name="use_for_this_checklist">Use for this checklist only</string>
     <plurals name="num_checked_items">
         <item quantity="one">%d checked item</item>
         <item quantity="other">%d checked items</item>

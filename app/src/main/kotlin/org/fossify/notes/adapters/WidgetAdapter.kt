@@ -129,12 +129,13 @@ class WidgetAdapter(val context: Context, val intent: Intent) : RemoteViewsServi
 
             // checklist title can be null only because of the glitch in upgrade to 6.6.0, remove this check in the future
             tasks = tasks.toMutableList() as ArrayList<Task>
-            val sorting = context.config.sorting
+            val sorting = context.config.getSorting(noteId)
             if (sorting and SORT_BY_CUSTOM == 0) {
+                Task.sorting = sorting
                 tasks.sort()
-                if (context.config.moveDoneChecklistItems) {
-                    tasks.sortBy { it.isDone }
-                }
+            }
+            if (context.config.getMoveDoneChecklistItems(noteId)) {
+                tasks.sortBy { it.isDone }
             }
         }
     }

@@ -67,6 +67,7 @@
     <string name="checklist_is_empty">Lista kontrolna jest pusta</string>
     <string name="delete_checked_items">Usuń odhaczone elementy</string>
     <string name="add_to_the_top">Dodaj na górze</string>
+    <string name="use_for_this_checklist">Tylko w tej liście kontrolnej</string>
     <plurals name="num_checked_items">
         <item quantity="one">%d odhaczony element</item>
         <item quantity="few">%d odhaczone elementy</item>

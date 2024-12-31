@@ -1,5 +1,6 @@
 package org.fossify.notes.dialogs
 
+import org.fossify.commons.extensions.beGone
 import org.fossify.commons.extensions.beGoneIf
 import org.fossify.commons.extensions.getAlertDialogBuilder
 import org.fossify.commons.extensions.setupDialogStuff
@@ -11,12 +12,17 @@ import org.fossify.notes.R
 import org.fossify.notes.activities.SimpleActivity
 import org.fossify.notes.databinding.DialogSortChecklistBinding
 import org.fossify.notes.extensions.config
+import org.fossify.notes.helpers.SORT_MOVE_DONE_ITEMS
 
-class SortChecklistDialog(private val activity: SimpleActivity, private val callback: () -> Unit) {
+class SortChecklistDialog(
+    private val activity: SimpleActivity,
+    private val noteId: Long?,
+    private val callback: () -> Unit
+) {
     private val binding = DialogSortChecklistBinding.inflate(activity.layoutInflater)
     private val view = binding.root
     private val config = activity.config
-    private var currSorting = config.sorting
+    private var currSorting = config.getSorting(noteId)
 
     init {
         setupSortRadio()
@@ -49,6 +55,12 @@ class SortChecklistDialog(private val activity: SimpleActivity, private val call
             fieldBtn = binding.sortingDialogRadioCustom
         }
 
+        if (noteId == null) {
+            binding.sortingDialogUseForThisChecklist.beGone()
+        } else {
+            binding.sortingDialogUseForThisChecklist.isChecked = config.hasOwnSorting(noteId)
+        }
+
         fieldBtn.isChecked = true
     }
 
@@ -63,7 +75,7 @@ class SortChecklistDialog(private val activity: SimpleActivity, private val call
     }
 
     private fun setupMoveUndoneChecklistItems() {
-        binding.settingsMoveUndoneChecklistItems.isChecked = config.moveDoneChecklistItems
+        binding.settingsMoveUndoneChecklistItems.isChecked = config.getMoveDoneChecklistItems(noteId)
         binding.settingsMoveUndoneChecklistItemsHolder.setOnClickListener {
             binding.settingsMoveUndoneChecklistItems.toggle()
         }
@@ -83,11 +95,19 @@ class SortChecklistDialog(private val activity: SimpleActivity, private val call
             sorting = sorting or SORT_DESCENDING
         }
 
-        if (currSorting != sorting) {
+        if (binding.settingsMoveUndoneChecklistItems.isChecked) {
+            sorting = sorting or SORT_MOVE_DONE_ITEMS
+        }
+
+        if (binding.sortingDialogUseForThisChecklist.isChecked) {
+            config.saveOwnSorting(noteId!!, sorting)
+        } else {
+            if (noteId != null) {
+                config.removeOwnSorting(noteId)
+            }
             config.sorting = sorting
         }
 
-        config.moveDoneChecklistItems = binding.settingsMoveUndoneChecklistItems.isChecked
         callback()
     }
 }

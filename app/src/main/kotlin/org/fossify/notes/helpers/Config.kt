@@ -75,10 +75,6 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getInt(LAST_CREATED_NOTE_TYPE, NoteType.TYPE_TEXT.value)
         set(lastCreatedNoteType) = prefs.edit().putInt(LAST_CREATED_NOTE_TYPE, lastCreatedNoteType).apply()
 
-    var moveDoneChecklistItems: Boolean
-        get() = prefs.getBoolean(MOVE_DONE_CHECKLIST_ITEMS, true)
-        set(moveDoneChecklistItems) = prefs.edit().putBoolean(MOVE_DONE_CHECKLIST_ITEMS, moveDoneChecklistItems).apply()
-
     fun getTextGravity() = when (gravity) {
         GRAVITY_CENTER -> Gravity.CENTER_HORIZONTAL
         GRAVITY_END -> Gravity.END
@@ -92,4 +88,26 @@ class Config(context: Context) : BaseConfig(context) {
     var addNewChecklistItemsTop: Boolean
         get() = prefs.getBoolean(ADD_NEW_CHECKLIST_ITEMS_TOP, false)
         set(addNewCheckListItemsTop) = prefs.edit().putBoolean(ADD_NEW_CHECKLIST_ITEMS_TOP, addNewCheckListItemsTop).apply()
+
+    fun getSorting(noteId: Long?) = if (noteId == null) sorting else getFolderSorting(noteId.toString())
+
+    fun hasOwnSorting(noteId: Long?) = noteId != null && hasCustomSorting(noteId.toString())
+
+    fun saveOwnSorting(noteId: Long, sorting: Int) = saveCustomSorting(noteId.toString(), sorting)
+
+    fun removeOwnSorting(noteId: Long) = removeCustomSorting(noteId.toString())
+
+    fun getMoveDoneChecklistItems(noteId: Long?): Boolean = getSorting(noteId) and SORT_MOVE_DONE_ITEMS != 0
+
+    fun migrateMoveDoneChecklistItems() {
+        val isMigrated = prefs.getBoolean(MIGRATED_MOVE_DONE_CHECKLIST_ITEMS, false)
+        if (isMigrated) {
+            return
+        }
+        val oldValue = prefs.getBoolean(MOVE_DONE_CHECKLIST_ITEMS, true)
+        if (oldValue) {
+            sorting = sorting or SORT_MOVE_DONE_ITEMS
+        }
+        prefs.edit().putBoolean(MIGRATED_MOVE_DONE_CHECKLIST_ITEMS, true).apply()
+    }
 }
