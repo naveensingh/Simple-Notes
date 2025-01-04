@@ -50,7 +50,7 @@
     <string name="autosave_notes">Аутоматско чување белешки</string>
     <string name="enable_line_wrap">Омогући преламање линија</string>
     <string name="use_incognito_mode">Користите анонимни режим тастатура</string>
-    <string name="move_done_checklist_items">Померите готове ставке контролне листе на дно</string>
+    <string name="move_done_checklist_items">Преместите означене ставке на дно</string>
     <string name="add_new_checklist_items_top">Додајте нове ставке контролне листе на врх</string>
     <string name="checklist">Контролна листа</string>
     <string name="checklists">Контролне листе</string>
@@ -64,4 +64,17 @@
     <string name="import_notes_pro">Увезите белешке (Про)</string>
     <string name="faq_1_title">Како могу да променим боју виџета\?</string>
     <string name="faq_1_text">У случају да имате само 1 активан виџет, можете га поново креирати или користити дугме у подешавањима апликације да бисте га прилагодили. Ако имате више активних виџета, дугме у подешавањима апликације неће бити доступно. Пошто апликација подржава прилагођавање боја по виџету, мораћете поново да креирате виџет који желите да прилагодите.</string>
+    <string name="allow_alarm_automatic_backups">Како би аутоматски направили резервну копију белешки, молимо вас да дозволите апликацији да заказује тачне аларме.</string>
+    <string name="password_protect_note_deletion">Заштитите брисање белешки лозинком</string>
+    <string name="widget_config">Хвала Вам што користите Fossify Notes.\n За више апликација од Fossify-а, посетите fossify.org.</string>
+    <string name="unlock_notes">Откључајте белешке</string>
+    <string name="found_locked_notes_info">Следеће белешке су закључане. Можете их откључати једну по једну или прескочити њихово извозење.</string>
+    <string name="cannot_load_over_internet">Апликација не може учитати фајлове преко интернета</string>
+    <plurals name="num_checked_items">
+        <item quantity="one">%d Означена ставка</item>
+        <item quantity="few">%d Означене ставке</item>
+        <item quantity="other">%d Означених ставки</item>
+    </plurals>
+    <string name="this_note_is_linked">Ова белешка је повезана са локалним фајлом.</string>
+    <string name="add_to_the_top">Додајте на врх</string>
 </resources>
